@@ -5,6 +5,6 @@
   <add id="zobo" name="Zobo" nameGenitive="Zoba" image="Zobo.png" thumbnail="Zobo náhled.png" image2="Zobo s penízkem.png" price="80" class="BaseMonster" />
   <add id="cimca" name="Čimča" nameGenitive="Čimču" image="Čimča.png" thumbnail="Čimča náhled.png" image2="Čimča s penízkem.png" price="100" class="BaseMonster" />
   <add id="tucnacek" name="Tučňáček" nameGenitive="Tučňáčka" image="Tučňáček.png" thumbnail="Tučňáček náhled.png" image2="Tučňáček s penízkem.png" price="500" class="BaseMonster" />
-  <add id="dracek" name="Dráček" nameGenitive="Dráčka" image="Dráček.png" thumbnail="Dráček náhled.png" image2="Dráček s penízkem.png" price="800" class="BaseMonster" />
+  <add id="dracek" name="Dráček" nameGenitive="Dráčka" image="Dráček.png" thumbnail="Dráček náhled.png" image2="Dráček s penízkem.png" price="800" class="Dracek" />
   <!--<add id="kravicka" name="Kravička" nameGenitive="Kravičku" image="Kravička.png" thumbnail="Kravička náhled.png" image2="Kravička s penízkem.png" price="1000" class="BaseMonster" />-->
 </animals> 

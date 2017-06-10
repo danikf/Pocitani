@@ -28,5 +28,9 @@ namespace Počítání.Monsters
         bool Bought { get; set; }
 
         Button Button { get; set; }
+
+        void OnSuccess(ref int successPrice);
+
+        void OnFail(ref int failPrice);
     }
 }

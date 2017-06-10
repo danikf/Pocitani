@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Examples\ExampleType.cs" />
+    <Compile Include="Monsters\Dracek.cs" />
     <Compile Include="Monsters\MonsterCollection.cs" />
     <Compile Include="Monsters\BaseMonster.cs" />
     <Compile Include="Monsters\IMonster.cs" />

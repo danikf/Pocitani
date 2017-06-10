@@ -48,5 +48,15 @@ namespace Počítání.Monsters
             _image2 = image2;
             _price = price;
         }
+
+        public virtual void OnSuccess(ref int successPrice)
+        {
+            //dummy
+        }
+
+        public virtual void OnFail(ref int failPrice)
+        {
+            //dummy
+        }
     }
 }

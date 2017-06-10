@@ -60,6 +60,8 @@ namespace Počítání
                 pictureBoxMonster.ImageLocation = _image2Location;
                 MessageBox.Show("Super! Paráda! Máš to správně.");
                 pictureBoxMonster.ImageLocation = _image1Location;
+                if (_settingsSelectedMonster != null)
+                    _settingsSelectedMonster.OnSuccess(ref _successPrice);
                 new SoundPlayer(@"Zvuky/cinkot peněz.wav").Play();
 
                 IncreaseMoney(_successPrice);
@@ -70,6 +72,8 @@ namespace Počítání
             {
                 new SoundPlayer(@"Zvuky/špatně.wav").Play();
                 MessageBox.Show(string.Format("Ale néé, máš to blbě, správný výsledek je {0}.", _result));
+                if (_settingsSelectedMonster != null)
+                    _settingsSelectedMonster.OnFail(ref _failPrice);
                 new SoundPlayer(@"Zvuky/odebrání peněz.wav").Play();
 
                 DecreaseMoney(_failPrice);
