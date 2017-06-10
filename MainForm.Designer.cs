@@ -117,14 +117,14 @@
             this.buttonChicco.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.buttonChicco.ImageIndex = 0;
             this.buttonChicco.ImageList = this.imageListShop;
-            this.buttonChicco.Location = new System.Drawing.Point(515, 129);
+            this.buttonChicco.Location = new System.Drawing.Point(437, 129);
             this.buttonChicco.Name = "buttonChicco";
             this.buttonChicco.Size = new System.Drawing.Size(80, 70);
             this.buttonChicco.TabIndex = 7;
             this.buttonChicco.Text = "Čiko";
             this.buttonChicco.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonChicco.UseVisualStyleBackColor = true;
-            this.buttonChicco.Click += new System.EventHandler(this.buttonChicco_Click);
+            this.buttonChicco.Visible = false;
             // 
             // pictureBoxMonster
             // 
@@ -162,7 +162,7 @@
             this.buttonGiraffe.Text = "Žirafka";
             this.buttonGiraffe.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonGiraffe.UseVisualStyleBackColor = true;
-            this.buttonGiraffe.Click += new System.EventHandler(this.buttonGiraffe_Click);
+            this.buttonGiraffe.Visible = false;
             // 
             // buttonZobo
             // 
@@ -177,7 +177,7 @@
             this.buttonZobo.Text = "Zobo";
             this.buttonZobo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonZobo.UseVisualStyleBackColor = true;
-            this.buttonZobo.Click += new System.EventHandler(this.buttonZobo_Click);
+            this.buttonZobo.Visible = false;
             // 
             // buttonCimca
             // 
@@ -192,7 +192,7 @@
             this.buttonCimca.Text = "Čimča";
             this.buttonCimca.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonCimca.UseVisualStyleBackColor = true;
-            this.buttonCimca.Click += new System.EventHandler(this.buttonCimca_Click);
+            this.buttonCimca.Visible = false;
             // 
             // labelX
             // 
@@ -210,14 +210,14 @@
             this.buttonTucnacek.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.buttonTucnacek.ImageIndex = 4;
             this.buttonTucnacek.ImageList = this.imageListShop;
-            this.buttonTucnacek.Location = new System.Drawing.Point(515, 205);
+            this.buttonTucnacek.Location = new System.Drawing.Point(519, 129);
             this.buttonTucnacek.Name = "buttonTucnacek";
             this.buttonTucnacek.Size = new System.Drawing.Size(80, 70);
             this.buttonTucnacek.TabIndex = 12;
             this.buttonTucnacek.Text = "Tučňáček";
             this.buttonTucnacek.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonTucnacek.UseVisualStyleBackColor = true;
-            this.buttonTucnacek.Click += new System.EventHandler(this.buttonTucnacek_Click);
+            this.buttonTucnacek.Visible = false;
             // 
             // labelEquals
             // 

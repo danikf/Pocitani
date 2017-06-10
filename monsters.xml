@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<animals>
+  <add id="chicco" name="Čiko" nameGenitive="Čika" image="Čiko.png" thumbnail="Čiko náhled.png" image2="Čiko s penízkem.png" price="22" class="BaseMonster" />
+  <add id="zirafka" name="Žirafka" nameGenitive="Žirafku" image="Žirafka.png" thumbnail="Žirafka náhled.png" image2="Žirafka s penízkem.png" price="60" class="BaseMonster" />
+  <add id="zobo" name="Zobo" nameGenitive="Zoba" image="Zobo.png" thumbnail="Zobo náhled.png" image2="Zobo s penízkem.png" price="80" class="BaseMonster" />
+  <add id="cimca" name="Čimča" nameGenitive="Čimču" image="Čimča.png" thumbnail="Čimča náhled.png" image2="Čimča s penízkem.png" price="100" class="BaseMonster" />
+  <add id="tucnacek" name="Tučňáček" nameGenitive="Tučňáčka" image="Tučňáček.png" thumbnail="Tučňáček náhled.png" image2="Tučňáček s penízkem.png" price="500" class="BaseMonster" />
+</animals> 

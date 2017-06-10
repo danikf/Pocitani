@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Počítání.Examples;
+using Počítání.Monsters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,53 +16,28 @@ namespace Počítání
 {
     public partial class MainForm : Form
     {
-        private static int ChiccoPrice = 22;
-        private static int GiraffePrice = 60;
-        private static int ZoboPrice = 80;
-        private static int CimcaPrice = 100;
-        private static int TucnacekPrice = 500;
         private static string DatabaseFilePath { get { return "db.txt"; } }
 
-        private enum ExampleType
-        {
-            /// <summary>2 + 3 =</summary>
-            Num1PlusNum2,
+        //plysaci
+        private MonsterCollection _monsters;
+        private IMonster _settingsSelectedMonster;
 
-            /// <summary>3 - 2 =</summary>
-            Num1MinusNum2,
-
-            /// <summary>2 + x = 4</summary>
-            Num1PlusXEqualsNum2,
-        
-            /// <summary>x + 3 = 4</summary>
-            XPlusNum1EqualsNum2,
-
-            /// <summary>2 + 3 = x</summary>
-            Num1PlusNum2EqualsX,
-
-            /// <summary>2 . x = 6</summary>
-            Num1MultipliedByXEqualsNum2,
-        }
-
-        public MainForm()
-        {
-            InitializeComponent();
-        }
-
+        //promenne prikladu
         private int _result;
         private int _successPrice;
         private int _failPrice;
         private string _exampleText;
         private bool _isEquation;
         private int _settingsMoney;
-        private string _settingsSelectedMonster;
-        private bool _settingsHasChicco;
-        private bool _settingsHasGiraffe;
-        private bool _settingsHasZobo;
-        private bool _settingsHasCimca;
-        private bool _settingsHasTucnacek;
+
+        //promenne grafickeho vyhledu
         private string _image1Location;
         private string _image2Location;
+
+        public MainForm()
+        {
+            InitializeComponent();
+        }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
@@ -197,8 +174,59 @@ namespace Počítání
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            LoadMonsters();
             LoadSettings();
             CreateNewExample();
+        }
+
+        private void LoadMonsters()
+        {
+            _monsters = new MonsterCollection("monsters.xml");
+
+            //buttons
+            int idx = 0;
+            const int firstMonsterButtonLeft = 429;
+            const int firstMonsterButtonTop = 129;
+            const int monstersInRow = 5;
+            foreach (var monster in _monsters)
+            {
+                //create button
+                var monsterButton = new System.Windows.Forms.Button();
+                monster.Button = monsterButton;
+
+                monsterButton.Enabled = false;
+                monsterButton.Image = System.Drawing.Image.FromFile(Path.Combine("Obrázky", monster.Thumbnail));
+                monsterButton.Location = new System.Drawing.Point(firstMonsterButtonLeft + ((idx % monstersInRow) * 86), firstMonsterButtonTop + ((idx / monstersInRow) * 86)); //TODO
+                monsterButton.Name = "button" + monster.Id;
+                monsterButton.Size = new System.Drawing.Size(80, 70);
+                monsterButton.TabIndex = 20 + idx;
+                monsterButton.Text = monster.Name;
+                monsterButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+                monsterButton.UseVisualStyleBackColor = true;
+                monsterButton.Click += (sender, args) => FocusOrBuyAnimal(monster);
+
+                this.Controls.Add(monsterButton);
+
+                idx++;
+            }
+        }
+
+        private void FocusOrBuyAnimal(IMonster monster)
+        {
+            if (monster.Bought)
+            {
+                _settingsSelectedMonster = monster;
+                SaveSettings();
+            }
+            else if (_settingsMoney >= monster.Price && MessageBox.Show($"Chcete koupit {monster.NameGenitive} za {monster.Price} Kč?", "Obchod", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                monster.Bought = true;
+                _settingsMoney -= monster.Price;
+                _settingsSelectedMonster = monster;
+                SaveSettings();
+                new SoundPlayer(@"Zvuky/fanfára.wav").Play();
+            }
+            textBox.Focus();
         }
 
         private void LoadSettings()
@@ -210,18 +238,24 @@ namespace Počítání
             }
             else
             {
-                fileContent = "0;Nikdo;False;False;False;False;False";
+                fileContent = "0;nikdo";
             }
 
             string[] values = fileContent.Split(new [] {";"}, StringSplitOptions.RemoveEmptyEntries);
 
+            var monsterList = _monsters.ToList();
+
             if (values.Length >= 1) _settingsMoney = Convert.ToInt32(values[0]);
-            if (values.Length >= 2) _settingsSelectedMonster = values[1];
-            if (values.Length >= 3) _settingsHasChicco = Convert.ToBoolean(values[2]);
-            if (values.Length >= 4) _settingsHasGiraffe = Convert.ToBoolean(values[3]);
-            if (values.Length >= 5) _settingsHasZobo = Convert.ToBoolean(values[4]);
-            if (values.Length >= 6) _settingsHasCimca = Convert.ToBoolean(values[5]);
-            if (values.Length >= 7) _settingsHasTucnacek = Convert.ToBoolean(values[6]);
+            if (values.Length >= 2)
+                _settingsSelectedMonster = _monsters.FindById(values[1]);
+            for(int idx = 0; idx < monsterList.Count; idx++ )
+            {
+                int arrayIdx = 2 + idx;
+                if (values.Length >= arrayIdx + 1)
+                    monsterList[idx].Bought = Convert.ToBoolean(values[arrayIdx]);
+                else
+                    monsterList[idx].Bought = false;
+            }
 
             ApplySettings();
         }
@@ -236,49 +270,24 @@ namespace Počítání
         private void SaveSettings()
         {
             ApplySettings();
-            string fileContent = string.Format("{0};{1};{2};{3};{4};{5};{6}",
-                _settingsMoney,
-                _settingsSelectedMonster,
-                _settingsHasChicco,
-                _settingsHasGiraffe,
-                _settingsHasZobo,
-                _settingsHasCimca,
-                _settingsHasTucnacek);
-
+            string fileContent =
+                string.Join(";", new List<string>() { _settingsMoney.ToString(), _settingsSelectedMonster != null ? _settingsSelectedMonster.Id : "nikdo" }
+                                    .Concat(_monsters.Select(m => m.Bought.ToString())));
+               
             File.WriteAllText(DatabaseFilePath, fileContent);
         }
 
         private void UpdateMonster()
         {
-            if (_settingsSelectedMonster == "Nikdo")
+            if (_settingsSelectedMonster == null)
             {
                 _image1Location = "Obrázky/Nikdo.png";
                 _image2Location = "Obrázky/Nikdo s penízkem.png";
             }
-            else if (_settingsSelectedMonster == "Chicco")
+            else
             {
-                _image1Location = "Obrázky/Čiko.png";
-                _image2Location = "Obrázky/Čiko s penízkem.png";
-            }
-            else if (_settingsSelectedMonster == "Giraffe")
-            {
-                _image1Location = "Obrázky/Žirafka.png";
-                _image2Location = "Obrázky/Žirafka s penízkem.png";
-            }
-            else if (_settingsSelectedMonster == "Zobo")
-            {
-                _image1Location = "Obrázky/Zobo.png";
-                _image2Location = "Obrázky/Zobo s penízkem.png";
-            }
-            else if (_settingsSelectedMonster == "Cimca")
-            {
-                _image1Location = "Obrázky/Čimča.png";
-                _image2Location = "Obrázky/Čimča s penízkem.png";
-            }
-            else if (_settingsSelectedMonster == "Tucnacek")
-            {
-                _image1Location = "Obrázky/Tučňáček.png";
-                _image2Location = "Obrázky/Tučňáček s penízkem.png";
+                _image1Location = Path.Combine("Obrázky", _settingsSelectedMonster.Image);
+                _image2Location = Path.Combine("Obrázky", _settingsSelectedMonster.Image2);
             }
 
             pictureBoxMonster.ImageLocation = _image1Location;
@@ -300,155 +309,16 @@ namespace Počítání
 
         private void UpdateMonsterButtons()
         {
-            if (_settingsHasChicco)
+            foreach(var monster in _monsters)
             {
-                buttonChicco.Text = "Čiko";
-                buttonChicco.Enabled = true;
-            }
-            else
-            {
-                buttonChicco.Text = string.Format("Čiko {0} Kč", ChiccoPrice);
-                buttonChicco.Enabled = (_settingsMoney >= ChiccoPrice);
-            }
-
-            if (_settingsHasGiraffe)
-            {
-                buttonGiraffe.Text = "Žirafka";
-                buttonGiraffe.Enabled = true;
-            }
-            else
-            {
-                buttonGiraffe.Text = string.Format("Žirafka {0} Kč", GiraffePrice);
-                buttonGiraffe.Enabled = (_settingsMoney >= GiraffePrice);
-            }
-
-            if (_settingsHasZobo)
-            {
-                buttonZobo.Text = "Zobo";
-                buttonZobo.Enabled = true;
-            }
-            else
-            {
-                buttonZobo.Text = string.Format("Zobo {0} Kč", ZoboPrice);
-                buttonZobo.Enabled = (_settingsMoney >= ZoboPrice);
-            }
-
-            if (_settingsHasCimca)
-            {
-                buttonCimca.Text = "Čimča";
-                buttonCimca.Enabled = true;
-            }
-            else
-            {
-                buttonCimca.Text = string.Format("Čimča {0} Kč", CimcaPrice);
-                buttonCimca.Enabled = (_settingsMoney >= CimcaPrice);
-            }
-
-            if (_settingsHasTucnacek)
-            {
-                buttonTucnacek.Text = "Tučňáček";
-                buttonTucnacek.Enabled = true;
-            }
-            else
-            {
-                buttonTucnacek.Text = string.Format("Tučňáček {0} Kč", TucnacekPrice);
-                buttonTucnacek.Enabled = (_settingsMoney >= TucnacekPrice);
+                monster.Button.Text = monster.Bought ? monster.Name : $"{monster.Name} {monster.Price} Kč";
+                monster.Button.Enabled = monster.Bought || _settingsMoney >= monster.Price;
             }
         }
 
         private void UpdateLabelMoney()
         {
             labelMoney.Text = string.Format("{0} Kč", _settingsMoney);
-        }
-
-        private void buttonChicco_Click(object sender, EventArgs e)
-        {
-            if (_settingsHasChicco)
-            {
-                _settingsSelectedMonster = "Chicco";
-                SaveSettings();
-            }
-            else if (_settingsMoney >= ChiccoPrice && MessageBox.Show(string.Format("Chcete koupit Čika za {0} Kč?", ChiccoPrice), "Obchod", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                _settingsHasChicco = true;
-                _settingsMoney -= ChiccoPrice;
-                _settingsSelectedMonster = "Chicco";
-                SaveSettings();
-                new SoundPlayer(@"Zvuky/fanfára.wav").Play();
-            }
-            textBox.Focus();
-        }
-
-        private void buttonGiraffe_Click(object sender, EventArgs e)
-        {
-            if (_settingsHasGiraffe)
-            {
-                _settingsSelectedMonster = "Giraffe";
-                SaveSettings();
-            }
-            else if (_settingsMoney >= GiraffePrice && MessageBox.Show(string.Format("Chcete koupit Žirafku za {0} Kč?", GiraffePrice), "Obchod", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                _settingsHasGiraffe = true;
-                _settingsMoney -= GiraffePrice;
-                _settingsSelectedMonster = "Giraffe";
-                SaveSettings();
-                new SoundPlayer(@"Zvuky/fanfára.wav").Play();
-            }
-            textBox.Focus();
-        }
-
-        private void buttonZobo_Click(object sender, EventArgs e)
-        {
-            if (_settingsHasZobo)
-            {
-                _settingsSelectedMonster = "Zobo";
-                SaveSettings();
-            }
-            else if (_settingsMoney >= ZoboPrice && MessageBox.Show(string.Format("Chcete koupit Zoba za {0} Kč?", ZoboPrice), "Obchod", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                _settingsHasZobo = true;
-                _settingsMoney -= ZoboPrice;
-                _settingsSelectedMonster = "Zobo";
-                SaveSettings();
-                new SoundPlayer(@"Zvuky/fanfára.wav").Play();
-            }
-            textBox.Focus();
-        }
-
-        private void buttonCimca_Click(object sender, EventArgs e)
-        {
-            if (_settingsHasCimca)
-            {
-                _settingsSelectedMonster = "Cimca";
-                SaveSettings();
-            }
-            else if (_settingsMoney >= CimcaPrice && MessageBox.Show(string.Format("Chcete koupit Čimču za {0} Kč?", CimcaPrice), "Obchod", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                _settingsHasCimca = true;
-                _settingsMoney -= CimcaPrice;
-                _settingsSelectedMonster = "Cimca";
-                SaveSettings();
-                new SoundPlayer(@"Zvuky/fanfára.wav").Play();
-            }
-            textBox.Focus();
-        }
-
-        private void buttonTucnacek_Click(object sender, EventArgs e)
-        {
-            if (_settingsHasTucnacek)
-            {
-                _settingsSelectedMonster = "Tucnacek";
-                SaveSettings();
-            }
-            else if (_settingsMoney >= TucnacekPrice && MessageBox.Show(string.Format("Chcete koupit Tučňáčka za {0} Kč?", TucnacekPrice), "Obchod", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                _settingsHasTucnacek = true;
-                _settingsMoney -= TucnacekPrice;
-                _settingsSelectedMonster = "Tucnacek";
-                SaveSettings();
-                new SoundPlayer(@"Zvuky/fanfára.wav").Play();
-            }
-            textBox.Focus();
         }
     }
 }
