@@ -140,6 +140,15 @@
     <None Include="Obrázky\Žirafka náhled.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Obrázky\Dráček náhled.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Obrázky\Dráček s penízkem.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Obrázky\Dráček.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Zvuky\chybně zadané číslo.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
