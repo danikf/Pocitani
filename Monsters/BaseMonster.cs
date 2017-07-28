@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Počítání.Examples;
 
 namespace Počítání.Monsters
 {
@@ -49,12 +50,22 @@ namespace Počítání.Monsters
             _price = price;
         }
 
-        public virtual void OnSuccess(ref int successPrice)
+        public virtual void OnSuccess()
         {
             //dummy
         }
 
-        public virtual void OnFail(ref int failPrice)
+        public virtual void OnFail()
+        {
+            //dummy
+        }
+
+        public virtual int GetExampleFrequencyByMonster(ExampleDef exampleDef)
+        {
+            return exampleDef.Frequency;
+        }
+
+        public virtual void UpdateExampleByMonster(IExample example)
         {
             //dummy
         }

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<examples>
+  <!-- Plus -->
+  <add code="Num1PlusNum2(100)" name="Num1PlusNum2 1..100, 1..100" frequency="1" class="ExampleNum1PlusNum2" successPrice="1" failPrice="3" maxNumber1="100" maxNumber2="100" parameters=""/>
+  <add code="Num1PlusNum2(1000,100)" name="Num1PlusNum2 1..100, 1..1000" frequency="1" class="ExampleNum1PlusNum2" successPrice="1" failPrice="1" maxNumber1="1000" maxNumber2="100" parameters=""/>
+  <add code="Num1PlusNum2(100,1000)" name="Num1PlusNum2 1..1000, 1..100" frequency="1" class="ExampleNum1PlusNum2" successPrice="1" failPrice="1" maxNumber1="100" maxNumber2="1000" parameters=""/>
+  <add code="Num1PlusNum2(1000,1000)" name="Num1PlusNum2 1..1000, 1..1000" frequency="1" class="ExampleNum1PlusNum2" successPrice="1" failPrice="1" maxNumber1="1000" maxNumber2="1000" parameters=""/>
+  <!-- Minus -->
+  <add code="Num1MinusNum2(100,20)" name="Num1MinusNum2 1..100, 1..20" frequency="1" class="ExampleNum1MinusNum2" successPrice="1" failPrice="1" maxNumber1="100" maxNumber2="20" parameters=""/>
+  <add code="Num1MinusNum2(100,100)" name="Num1MinusNum2 1..100, 1..100" frequency="1" class="ExampleNum1MinusNum2" successPrice="1" failPrice="1" maxNumber1="100" maxNumber2="100" parameters=""/>
+  <add code="Num1MinusNum2(1000,100)" name="Num1MinusNum2 1..1000, 1..100" frequency="1" class="ExampleNum1MinusNum2" successPrice="1" failPrice="1" maxNumber1="1000" maxNumber2="100" parameters=""/>    
+  <!-- Equations -->
+  <add code="Num1PlusNum2EqualsX(20,20)" name="Num1PlusNum2EqualsX 1..20, 1..20" frequency="1" class="ExampleNum1PlusNum2EqualsX" successPrice="1" failPrice="1" maxNumber1="20" maxNumber2="20" parameters=""/>
+  <add code="Num1PlusNum2EqualsX(100,100)" name="Num1PlusNum2EqualsX 1..100, 1..100" frequency="1" class="ExampleNum1PlusNum2EqualsX" successPrice="1" failPrice="1" maxNumber1="100" maxNumber2="100" parameters=""/>
+  <!--<add code="Num1PlusNum2EqualsX(1000,1000)" name="Num1PlusNum2EqualsX 1..1000, 1..1000" frequency="1" class="ExampleNum1PlusNum2EqualsX" successPrice="1" failPrice="1" maxNumber1="1000" maxNumber2="1000" parameters=""/> NEVEJDE SE PRIKLAD DO TEXTBOXU-->
+
+  <add code="Num1PlusXEqualsNum2(20,20)" name="Num1PlusXEqualsNum2 1..20, 1..20" frequency="1" class="ExampleNum1PlusXEqualsNum2" successPrice="1" failPrice="1" maxNumber1="20" maxNumber2="20" parameters=""/>  
+  <add code="Num1PlusXEqualsNum2(20,100)" name="Num1PlusXEqualsNum2 1..20, 1..100" frequency="1" class="ExampleNum1PlusXEqualsNum2" successPrice="1" failPrice="1" maxNumber1="20" maxNumber2="100" parameters=""/>  
+  <add code="Num1PlusXEqualsNum2(100,100)" name="Num1PlusXEqualsNum2 1..100, 1..100" frequency="1" class="ExampleNum1PlusXEqualsNum2" successPrice="1" failPrice="1" maxNumber1="100" maxNumber2="100" parameters=""/>    
+
+  <add code="XPlusNum1EqualsNum2(20,20)" name="XPlusNum1EqualsNum2 1..20, 1..20" frequency="1" class="ExampleXPlusNum1EqualsNum2" successPrice="1" failPrice="1" maxNumber1="20" maxNumber2="20" parameters=""/>  
+  <add code="XPlusNum1EqualsNum2(20,100)" name="XPlusNum1EqualsNum2 1..20, 1..100" frequency="1" class="ExampleXPlusNum1EqualsNum2" successPrice="1" failPrice="1" maxNumber1="20" maxNumber2="100" parameters=""/>      
+  <add code="XPlusNum1EqualsNum2(100,100)" name="XPlusNum1EqualsNum2 1..100, 1..100" frequency="1" class="ExampleXPlusNum1EqualsNum2" successPrice="1" failPrice="1" maxNumber1="100" maxNumber2="100" parameters=""/>    
+
+  <add code="Num1MultipliedByXEqualsNum2(10,'1;2;3;10')" name="Num1MultipliedByXEqualsNum2 1..20, '1;2;3;10'" frequency="1" class="ExampleNum1MultipliedByXEqualsNum2" successPrice="1" failPrice="1" maxNumber1="20" maxNumber2="20" parameters="1,2,3,10"/>  
+  <add code="Num1MultipliedByXEqualsNum2(10,'1;2;3;4;5;6;7;8;9;10')" name="Num1MultipliedByXEqualsNum2 1..20, '1;2;3;4;5;6;7;8;9;10'" frequency="1" class="ExampleNum1MultipliedByXEqualsNum2" successPrice="1" failPrice="1" maxNumber1="20" maxNumber2="20" parameters="1,2,3,4,5,6,7,8,9,10"/>  
+</examples>

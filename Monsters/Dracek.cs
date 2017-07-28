@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Počítání.Examples;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,18 +12,10 @@ namespace Počítání.Monsters
     /// </summary>
     public class Dracek: BaseMonster
     {
-        public override void OnSuccess(ref int successPrice)
+        public override void  UpdateExampleByMonster(IExample example)
         {
-            successPrice = successPrice + 1;
-
-            base.OnSuccess(ref successPrice);
-        }
-
-        public override void OnFail(ref int failPrice)
-        {
-            failPrice = failPrice + 2;
-
-            base.OnFail(ref failPrice);
+            example.SuccessPrice = example.SuccessPrice + 1;
+            example.FailPrice = example.FailPrice + 2;
         }
     }
 }

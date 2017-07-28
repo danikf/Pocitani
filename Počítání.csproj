@@ -44,7 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Examples\BaseExample.cs" />
+    <Compile Include="Examples\Equation\ExampleNum1MultipliedByXEqualsNum2.cs" />
+    <Compile Include="Examples\ExampleCollection.cs" />
+    <Compile Include="Examples\ExampleDef.cs" />
+    <Compile Include="Examples\Minus\ExampleNum1MinusNum2.cs" />
+    <Compile Include="Examples\Plus\ExampleNum1PlusNum2.cs" />
+    <Compile Include="Examples\Equation\ExampleNum1PlusNum2EqualsX.cs" />
     <Compile Include="Examples\ExampleType.cs" />
+    <Compile Include="Examples\Equation\ExampleXPlusNum1EqualsNum2.cs" />
+    <Compile Include="Examples\IExample.cs" />
+    <Compile Include="Examples\Equation\ExampleNum1PlusXEqualsNum2.cs" />
     <Compile Include="Monsters\Dracek.cs" />
     <Compile Include="Monsters\MonsterCollection.cs" />
     <Compile Include="Monsters\BaseMonster.cs" />
@@ -91,6 +101,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Obrázky\Gradient.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="examples.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="monsters.xml">

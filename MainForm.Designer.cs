@@ -53,11 +53,11 @@
             // 
             this.labelExample.BackColor = System.Drawing.Color.Transparent;
             this.labelExample.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelExample.Location = new System.Drawing.Point(12, 13);
+            this.labelExample.Location = new System.Drawing.Point(4, 13);
             this.labelExample.Name = "labelExample";
             this.labelExample.Size = new System.Drawing.Size(410, 81);
             this.labelExample.TabIndex = 0;
-            this.labelExample.Text = "10 +10 =";
+            this.labelExample.Text = "76 + 29 = X";
             // 
             // buttonOK
             // 
