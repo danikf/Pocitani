@@ -99,6 +99,8 @@ namespace Počítání
 
                 var exampleDef = examplesForMonster.ToArray()[randomIndex];
                 _currentExample = exampleDef.CreateExample(random);
+                if (_currentMonster != null)
+                    _currentMonster.UpdateExampleByMonster(_currentExample); //callback na potvoru - muze menit example       //TODO tato implementace ma za nasledek, ze zmena zvirete po zadani prikladu se uz neprojevi        
 
                 labelExample.Text = _currentExample.Text;
                 labelX.Visible = _currentExample.IsEquation;
@@ -109,104 +111,7 @@ namespace Počítání
                 pictureBoxMonster.ImageLocation = _image1Location;
             }
 
-            //Action[] initExampleDelegates =
-            //{
-            //    delegate { InitExample(ExampleType.Num1PlusNum2, 100, 100, 1, 3); },
-            //    delegate { InitExample(ExampleType.Num1PlusNum2, 1000, 100, 2, 1); },
-            //    delegate { InitExample(ExampleType.Num1PlusNum2, 1000, 1000, 3, 1); },
-
-            //    delegate { InitExample(ExampleType.Num1MinusNum2, 100, 20, 1, 1); },
-            //    //delegate { InitExample(ExampleType.Num1MinusNum2, 1000, 100, 2, 1); },
-
-            //    delegate { InitExample(ExampleType.Num1PlusNum2EqualsX, 20, 20, 2, 1); },
-
-
-
-            //    delegate { InitExample(ExampleType.Num1PlusXEqualsNum2, 20, 20, 3, 1); },
-
-            //    delegate { InitExample(ExampleType.XPlusNum1EqualsNum2, 20, 20, 3, 1); },
-
-
-            //    delegate { InitExample(ExampleType.Num1MultipliedByXEqualsNum2, 10, 30, 3, 1); },
-            //};
-
-            //var random = new Random();
-            //int randomIndex = random.Next(initExampleDelegates.Length);
-
-            //initExampleDelegates[randomIndex]();
-
-            //labelExample.Text = _exampleText;
-            //labelX.Visible = _isEquation;
-            //labelEquals.Visible = _isEquation;
-            //textBox.Text = "";
-            //textBox.Focus();
-            //UpdateLabelMoney();
-            //pictureBoxMonster.ImageLocation = _image1Location;
         }
-
-        //private void InitExample(ExampleType exampleType, int maxNumber1, int maxNumber2, int successPrice, int failPrice)
-        //{
-        //    var random = new Random();
-        //    _successPrice = successPrice;
-        //    _failPrice = failPrice;
-
-        //    if (exampleType == ExampleType.Num1PlusNum2)
-        //    {
-        //        int number1 = random.Next(maxNumber1) + 1;
-        //        int number2 = random.Next(maxNumber2) + 1;
-        //        _result = number1 + number2;
-        //        _exampleText = string.Format("{0} + {1} =", number1, number2);
-        //        _isEquation = false;
-        //    }
-        //    else if (exampleType == ExampleType.Num1MinusNum2)
-        //    {
-        //        int number1 = random.Next(maxNumber1) + 1;
-        //        int number2 = random.Next(Math.Min(number1, maxNumber2)) + 1;
-        //        _result = number1 - number2;
-        //        _exampleText = string.Format("{0} - {1} =", number1, number2);
-        //        _isEquation = false;
-        //    }
-        //    else if (exampleType == ExampleType.Num1PlusXEqualsNum2)
-        //    {
-        //        int number2 = random.Next(maxNumber1 - 1) + 2;
-        //        int number1 = random.Next(Math.Min(number2, maxNumber1)) + 1;
-        //        int x = number2 - number1;
-        //        _result = x;
-        //        _exampleText = string.Format("{0} + x = {1}", number1, number2);
-        //        _isEquation = true;
-        //    }
-        //    else if (exampleType == ExampleType.XPlusNum1EqualsNum2)
-        //    {
-        //        int number2 = random.Next(maxNumber1 - 1) + 2;
-        //        int number1 = random.Next(Math.Min(number2, maxNumber1)) + 1;
-        //        int x = number2 - number1;
-        //        _result = x;
-        //        _exampleText = string.Format("x + {0} = {1}", number1, number2);
-        //        _isEquation = true;
-        //    }
-        //    else if (exampleType == ExampleType.Num1PlusNum2EqualsX)
-        //    {
-        //        int number1 = random.Next(maxNumber1) + 1;
-        //        int number2 = random.Next(maxNumber2) + 1;
-        //        int x = number2 + number1;
-        //        _result = x;
-        //        _exampleText = string.Format("{0} + {1} = x", number1, number2);
-        //        _isEquation = true;
-        //    }
-        //    else if (exampleType == ExampleType.Num1MultipliedByXEqualsNum2)
-        //    {
-        //        var possibleX = new int[] { 1, 2, 3, 10};
-        //        int number1 = random.Next(maxNumber1) + 1;
-        //        int index = random.Next(possibleX.Length);
-        //        int x = possibleX[index];
-        //        int number2 = number1 * x;
-        //        _result = x;
-        //        _exampleText = string.Format("{0} . x = {1}", number1, number2);
-        //        _isEquation = true;
-        //    }
-        //    else
-        //        throw new NotImplementedException(string.Format("Chyba, typ příkladu {0} není implementován.", exampleType));
-        //}
 
         private void MainForm_Load(object sender, EventArgs e)
         {
